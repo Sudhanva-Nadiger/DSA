@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[101][1000][2];
+    int dp[101][204][2];
     int f(vector<int>& piles,int start, int m, int player) {
         if(start >= piles.size()) return 0;
         
