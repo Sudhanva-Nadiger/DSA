@@ -12,33 +12,32 @@
 class Solution {
 public:
     int countSwaps(vector<int>& nums) {
-        vector<pair<int, int>> arr;
+        vector<int> arr;
+        int n = nums.size();
         
         for(int i = 0; i < nums.size(); i++) {
-            arr.push_back({nums[i], i});
+            arr.push_back(nums[i]);
         }
         
         sort(begin(arr), end(arr));
         
         int minSwaps = 0;
         
-        vector<int> visited(nums.size());
+        unordered_map<int,int> mp;
         
-        for(int i = 0; i < nums.size(); i++) {
-            if(visited[i] || arr[i].second == i) {
-                continue;
+        for(int i = 0; i < n; i++) {
+            mp[arr[i]] = i;
+        }
+        
+        int i = 0;
+        
+        while(i < n) {
+            if(i == mp[nums[i]]) {
+                i++;
+            }else {
+                swap(nums[i], nums[mp[nums[i]]]);
+                minSwaps++;
             }
-            
-            int cycleSize = 0;
-            int j = i;
-            
-            while(!visited[j]) {
-                visited[j] = 1;
-                cycleSize++;
-                j = arr[j].second;
-            }
-            
-            minSwaps += max(0, cycleSize-1);
         }
         
         return minSwaps;
