@@ -17,11 +17,11 @@ public:
             }
         }
         
-        while(j <= i && cs >= target) {
-            ans = min(ans, i-j+1);
-            cs -= nums[j];
-            j++;
-        }
+        // while(j <= i && cs >= target) {
+        //     ans = min(ans, i-j+1);
+        //     cs -= nums[j];
+        //     j++;
+        // }
         
         return ans == 1e9 ? 0 : ans;
     }
