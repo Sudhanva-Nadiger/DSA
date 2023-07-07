@@ -16,8 +16,7 @@ public:
             return;
         }
         
-        if(root->left)
-            f(root->left,ans, prev);
+        f(root->left,ans, prev);
         
         
         if(prev) {
@@ -25,8 +24,8 @@ public:
         }
         
         prev = root;
-        if(root->right)
-            f(root->right, ans, prev);
+        
+        f(root->right, ans, prev);
     }
     int getMinimumDifference(TreeNode* root) {
         int ans = INT_MAX;
