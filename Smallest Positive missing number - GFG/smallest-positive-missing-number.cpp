@@ -14,14 +14,9 @@ class Solution
         int i = 0;
         
         while(i < n) {
-            if((nums[i] == i+1) || (nums[i] > n) || (nums[i] <= 0)) {
+            if((nums[i] == i+1) || (nums[i] > n) || (nums[i] <= 0) || nums[i] == nums[nums[i]-1]) {
                 i++;
             }else {
-                int id = nums[i]-1;
-                if(nums[id] == id+1) {
-                    i++;
-                    continue;
-                }
                 swap(nums[i], nums[nums[i]-1]);
             }
         }
