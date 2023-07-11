@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[2000][4001];
+    int dp[2000][2001];
     bool f(unordered_map<int, int>& mp,vector<int>& nums, int n,int i, int k) {
         if(i == n-1) {
             return true;
