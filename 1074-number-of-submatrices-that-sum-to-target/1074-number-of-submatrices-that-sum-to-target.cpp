@@ -9,7 +9,7 @@ public:
         for(int i = 0; i < n; i++) {
             sum += arr[i];
             
-            if(mp.find(sum-sum) != mp.end()) {
+            if(mp.find(sum-target) != mp.end()) {
                 count += mp[sum-target];
             }
             
