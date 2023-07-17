@@ -7,19 +7,19 @@ class Solution {
 	public:
 		string FirstNonRepeating(string A){
 		    unordered_map<char, int> mp;
-		    priority_queue<pair<int, char>, vector<pair<int, char>>, greater<pair<int, char>>> pq;
+		    queue<pair<int, char>> pq;
 		    string ans = "";
 		    
 		    for(int i = 0; i < A.size(); i++) {
 		        mp[A[i]]++;
 		        pq.push({i, A[i]});
 		        
-		        while(pq.size() && mp[pq.top().second] > 1) {
+		        while(pq.size() && mp[pq.front().second] > 1) {
 		            pq.pop();
 		        }
 		        
 		        if(pq.size()) {
-		            ans.push_back(pq.top().second);
+		            ans.push_back(pq.front().second);
 		        }else {
 		            ans.push_back('#');
 		        }
