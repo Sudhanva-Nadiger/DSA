@@ -39,9 +39,10 @@ public:
         
         for(int i = 0; i < word.size(); i++) {
             int id = word[i]-'a';
+            
             if(t && t->flag) return word.substr(0, i);
-            if(t->children[id]) {   
-            }else {
+            
+            if(!t->children[id]) {   
                 return word;
             }
             
