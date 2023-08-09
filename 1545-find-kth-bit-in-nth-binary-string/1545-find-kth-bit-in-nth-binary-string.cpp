@@ -1,21 +1,10 @@
 class Solution {
 public:
     char findKthBit(int n, int k) {
-        vector<int> dp;
-        dp.push_back(0);
-        
-        for(int i = 1; i < n; i++) {
-            dp.push_back(1);
-            
-            int t = dp.size();
-            for(int i = t-2; i >= 0; i--) {
-                dp.push_back(!dp[i]);
-                if(dp.size() == k) {
-                    return dp[k-1]+'0';
-                }
-            }
-        }
-        
-        return dp[k-1]+'0';
+        if(n == 1) return '0';
+        int len = (1 << n) - 1;
+        if(k-1 == len/2) return '1';
+        if(k-1 < len/2) return findKthBit(n-1, k);
+        return findKthBit(n-1, len-k+1) == '0' ? '1' : '0';
     }
 };
