@@ -10,6 +10,9 @@ public:
             int t = dp.size();
             for(int i = t-2; i >= 0; i--) {
                 dp.push_back(!dp[i]);
+                if(dp.size() == k) {
+                    return dp[k-1]+'0';
+                }
             }
         }
         
