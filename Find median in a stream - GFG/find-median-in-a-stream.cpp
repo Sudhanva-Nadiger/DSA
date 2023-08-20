@@ -18,13 +18,7 @@ class Solution
             minHeap.push(x);
         }
         
-        if(maxHeap.size() > minHeap.size()+1) {
-            minHeap.push(maxHeap.top());
-            maxHeap.pop();
-        } else if(maxHeap.size() < minHeap.size()) {
-            maxHeap.push(minHeap.top());
-            minHeap.pop();
-        }
+        balanceHeaps();
     }
     
     //Function to balance heaps.
