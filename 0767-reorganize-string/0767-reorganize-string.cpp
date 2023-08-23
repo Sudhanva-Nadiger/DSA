@@ -24,7 +24,7 @@ public:
                 auto t = pq.top();
                 pq.pop();
 
-                if(ans.back() == (t.second+'a')) return "";
+                if(ans.size () && ans.back() == (t.second+'a')) return "";
                 ans.push_back((t.second+'a'));
                 t.first--;
 
