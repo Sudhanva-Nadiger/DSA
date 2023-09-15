@@ -28,20 +28,13 @@ public:
     int minCostConnectPoints(vector<vector<int>>& points) {
         int n = points.size();
         
-        map<pair<int, int>, int> mp; 
+        vector<pair<int, pair<int, int>>> arr;
         for(int i = 0; i < n; i++) {
             par[i] = i;
             size[i] = 1;
-            mp[{points[i][0], points[i][1]}] = i;
-        }
-        
-        vector<pair<int, pair<int, int>>> arr;
-        for(int i = 0; i < n; i++) {
-            int u = mp[{points[i][0], points[i][1]}];
             for(int j = i+1; j < n; j++) {
-                int v = mp[{points[j][0], points[j][1]}];
                 int dist = abs(points[i][0]-points[j][0]) + abs(points[i][1]-points[j][1]);
-                arr.push_back({dist, {u, v}});
+                arr.push_back({dist, {i, j}});
             }
         }
         
