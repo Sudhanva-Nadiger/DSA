@@ -1,25 +1,24 @@
 class Solution {
 public:
     vector<vector<vector<int>>> dp;
-    int n = 0, m = 0;
-    
-    int f(vector<int>& nums1, vector<int>& nums2, int i, int j, bool selected) {
-        if(i == n || j == m) {
-            if(selected) return 0;
-            return -1e9;
+    int f(vector<int>& nums1, vector<int>& nums2, int i, int j, bool taken = false) {
+        if(i >= nums1.size() || j >= nums2.size()) {
+            return taken ? 0 : -1e9;
         }
         
-        if(dp[i][j][selected] != INT_MIN) return dp[i][j][selected];
+        if(dp[i][j][taken] != INT_MIN) {
+            return dp[i][j][taken];
+        }
         
-        int a = f(nums1, nums2, i, j+1, selected);
-        int b = f(nums1, nums2, i+1, j, selected);
-        int c = nums1[i]*nums2[j] + f(nums1, nums2, i+1, j+1, true);
+        int a = nums1[i]*nums2[j] + f(nums1, nums2, i+1, j+1, true);
+        int b = f(nums1, nums2, i+1, j, taken | false);
+        int c = f(nums1, nums2, i, j+1, taken | false);
         
-        return dp[i][j][selected] = max({a, b, c});
+        return dp[i][j][taken] = max({a, b, c});
     }
+    
     int maxDotProduct(vector<int>& nums1, vector<int>& nums2) {
-        n = nums1.size(), m = nums2.size();
-        dp = vector<vector<vector<int>>>(n, vector<vector<int>>(m, vector<int>(3, INT_MIN)));
-        return f(nums1, nums2, 0, 0, false);
+        dp = vector<vector<vector<int>>>(nums1.size(), vector<vector<int>>(nums2.size(), vector<int>(3, INT_MIN)));
+        return f(nums1, nums2, 0, 0);
     }
 };
