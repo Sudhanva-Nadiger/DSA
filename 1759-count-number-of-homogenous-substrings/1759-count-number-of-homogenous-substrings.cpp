@@ -1,22 +1,19 @@
 class Solution {
 public:
+    int mod = 1e9 + 7;
     int countHomogenous(string s) {
-        long long ans = 0;
-        int n = s.size();
-        int mod = 1e9+7;
+        int ans = 0, n = s.size();
         
-        for(int i = 0; i < n;) {
-            int j = i;
-            long long count = 0;
-            while(s[j] == s[i]) {
+        for(int i = 0; i < n; ) {
+            long long j = i, count = 0ll;
+            
+            while(j < n && s[j] == s[i]) {
                 count++;
                 j++;
             }
             
             i = j;
-            
-            long long t = ((count)*(count+1))/2;
-            ans = (ans + t)%mod;
+            ans = (ans + ((count*(count+1))%mod)/2)%mod;
         }
         
         return ans;
