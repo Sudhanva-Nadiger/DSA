@@ -15,7 +15,7 @@ public:
         int ans = 0;
         for(int i = 0; i < 26; i++) {
             if(first[i] != -1 && last[i] != -1) {
-                set<char> st;
+                unordered_set<char> st;
                 for(int j = first[i]+1; j < last[i]; j++) {
                     st.insert(s[j]);
                 }
