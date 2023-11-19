@@ -1,27 +1,15 @@
 class Solution {
 public:
     int reductionOperations(vector<int>& nums) {
-        int minEle = nums[0];
-        map<int, int> mp;
-        for(auto it : nums) {
-            minEle = min(minEle, it);
-            mp[it]++;
-        }
-        
+        vector<int> arr(50001, 0);
+        for(auto it : nums) arr[it] = 1;
         int ans = 0;
-        
-        int prevCount = 0;
-        for(auto it : mp) {
-            
-            if(it.first == minEle) {
-                continue;
-            }
-            
-            prevCount += 1;
-            
-            ans += it.second*prevCount;
+        for(int i = 1; i < arr.size(); i++) {
+            arr[i] += arr[i-1];
         }
-        
+        for(auto it : nums) {
+            ans += arr[it-1];
+        }
         return ans;
     }
 };
