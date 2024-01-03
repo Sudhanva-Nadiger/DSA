@@ -1,7 +1,7 @@
 class MovieRentingSystem {
 public:
-    unordered_map<int, set<pair<int, int>>> mp; // movie-{rent, shop}
-    unordered_map<int, map<int, int>> ma; // {movie, shop - val}
+    map<int, set<pair<int, int>>> mp; // movie-{rent, shop}
+    map<int, map<int, int>> ma; // {movie, shop - val}
     map<int, set<pair<int, int>>> rentedMovies;
     
     MovieRentingSystem(int n, vector<vector<int>>& entries) {
