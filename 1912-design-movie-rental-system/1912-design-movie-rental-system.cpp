@@ -1,11 +1,11 @@
 class MovieRentingSystem {
 public:
-    map<int, set<pair<int, int>>> mp; // movie-{rent, shop}
-    map<int, map<int, int>> ma; // {movie, shop - val}
+    unordered_map<int, set<pair<int, int>>> mp; // movie-{rent, shop}
+    unordered_map<int, map<int, int>> ma; // {movie, shop - val}
     map<int, set<pair<int, int>>> rentedMovies;
     
     MovieRentingSystem(int n, vector<vector<int>>& entries) {
-        for(auto e : entries) {
+        for(auto& e : entries) {
             int shop = e[0];
             int movie = e[1];
             int price = e[2];
@@ -17,7 +17,7 @@ public:
     
     vector<int> search(int movie) {
         vector<int> ans;
-        for(auto it : mp[movie]) {
+        for(auto& it : mp[movie]) {
             ans.push_back(it.second);
             
             if(ans.size() == 5) {
@@ -45,8 +45,8 @@ public:
     vector<vector<int>> report() {
         vector<vector<int>> ans;
         
-        for(auto it : rentedMovies) {
-            for(auto [shop, movie] : it.second) {
+        for(auto& it : rentedMovies) {
+            for(auto& [shop, movie] : it.second) {
                 ans.push_back({shop, movie});
                 
                 if(ans.size() == 5) {
