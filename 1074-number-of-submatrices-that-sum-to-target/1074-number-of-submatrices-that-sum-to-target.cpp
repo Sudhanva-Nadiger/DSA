@@ -1,39 +1,31 @@
 class Solution {
 public:
-    int f(int arr[], int n, int target) {
+    int countMatrices(vector<int>& nums, int target) {
         unordered_map<int, int> mp;
+        int sum = 0, count = 0;
         mp[0] = 1;
-        int sum = 0;
-        int count = 0;
-        
-        for(int i = 0; i < n; i++) {
-            sum += arr[i];
-            
-            if(mp.find(sum-target) != mp.end()) {
-                count += mp[sum-target];
-            }
-            
+        for(int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            count += mp[sum-target];
             mp[sum]++;
         }
         
         return count;
     }
     
-    int numSubmatrixSumTarget(vector<vector<int>>& matrix, int target) {
-        int numRow = matrix.size();
-        int numCol = matrix[0].size();
-        int ans = 0;
-        int dp[numRow];
+    int numSubmatrixSumTarget(vector<vector<int>>& mat, int target) {
+        int ans = 0,m = mat.size(), n = mat[0].size();
         
-        for(int left = 0; left < numCol; left++) {
-            memset(dp, 0, sizeof dp);
+        for(int left = 0; left < n; left++) {
+            vector<int> nums(m);
             
-            for(int right = left; right < numCol; right++) {
-                for(int i = 0; i < numRow; i++) {
-                    dp[i] += matrix[i][right];
+            for(int right = left;right <n; right++) {
+                
+                for(int row = 0; row < m; row++) {
+                    nums[row] += mat[row][right];
                 }
                 
-                ans += f(dp, numRow, target);
+                ans += countMatrices(nums, target);
             }
         }
         
