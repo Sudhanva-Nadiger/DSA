@@ -1,37 +1,32 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        unordered_map<char, int> mp2;
+        int n = s.size(), req = t.size();
+        vector<int> mp1(150, 0), mp2(150, 0);
         
-        for(auto it : t) {
-            mp2[it]++;
-        }
+        for(auto it : t) mp1[it-'A']++;
         
-        int start = -1;
-        int end = -1;
+        int count = 0, j = 0, start = -1, end = n;
         
-        int c = 0;
-        int count = t.size();
-        unordered_map<char, int> mp1;
-        int j = 0;
-        for(int i = 0; i <s.size(); i++) {
-            mp1[s[i]]++;
-            
-            if(mp1[s[i]] <= mp2[s[i]]) {
-                c++;
+        for(int i = 0; i < n; i++) {
+            if(mp1[s[i]-'A'] && mp2[s[i]-'A'] < mp1[s[i]-'A']) {
+                count++;
             }
             
+            if(mp1[s[i]-'A'])
+                mp2[s[i]-'A']++;
             
-            while((j <= i) && (c == count)) {
-                if(start == -1 || i-j+1 < end-start+1) {
-                    end = i;
-                    start = j;
+            while(j <= i && count == req) {
+                if(mp1[s[j]-'A'] && mp2[s[j]-'A'] <= mp1[s[j]-'A']) {
+                    count--;
                 }
                 
-                mp1[s[j]]--;
+                if(mp1[s[j]-'A'])
+                    mp2[s[j]-'A']--;
                 
-                if(mp1[s[j]] < mp2[s[j]]) {
-                    c--;
+                if(i-j+1 < end-start+1) {
+                    start = j;
+                    end = i;
                 }
                 
                 j++;
@@ -39,6 +34,7 @@ public:
         }
         
         if(start == -1) return "";
+        
         return s.substr(start, end-start+1);
     }
 };
