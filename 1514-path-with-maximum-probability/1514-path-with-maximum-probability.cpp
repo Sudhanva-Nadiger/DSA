@@ -1,41 +1,37 @@
 class Solution {
 public:
-    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
-        unordered_map<int, vector<pair<int, double>>> adj;
+    double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start_node, int end_node) {
+        vector<vector<pair<int, double>>> adj(n);
         
         for(int i = 0; i < edges.size(); i++) {
-            adj[edges[i][0]].push_back({edges[i][1], succProb[i]});
-            adj[edges[i][1]].push_back({edges[i][0], succProb[i]});
+            int u = edges[i][0];
+            int v = edges[i][1];
+            double prob = succProb[i];
+            
+            adj[u].push_back({v, prob});
+            adj[v].push_back({u, prob});
         }
         
-        unordered_set<int> visited;
-        vector<double> dist(n+1, 0.0);
-        dist[start] = 1.0;
+        priority_queue<pair<double, int>> pq;
+        vector<double> dist(n, -1e5);
         
-        priority_queue<pair<double, int>> q;
+        pq.push({1.0, start_node});
+        dist[start_node] = 1.0;
         
-        q.push({1.0, start});
-        // visited.insert(start);
-        double ans = 0.0;
-        
-        while(q.size()) {
-            auto front = q.top();
-            q.pop();
-            int node = front.second;
-            double prob = front.first;
+        while(pq.size()) {
+            auto [prob, node] = pq.top();
+            pq.pop();
             
-            if(!visited.count(node)) {
-                visited.insert(node);
-                
-                for(auto it : adj[node]) {
-                    if(dist[it.first] < prob*it.second) {
-                        dist[it.first] = prob*it.second;
-                        q.push({dist[it.first], it.first});
-                    }
+            if(dist[node] > prob) continue;
+            
+            for(auto [child, wt] : adj[node]) {
+                if(wt*prob > dist[child]) {
+                    dist[child] = wt*prob;
+                    pq.push({dist[child], child});
                 }
             }
         }
         
-        return dist[end];
+        return max(0.0, dist[end_node]);
     }
 };
